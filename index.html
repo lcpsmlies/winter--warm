@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎇💖嗨咯，你的立冬专属祝福来啦~🤗💕</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Microsoft YaHei', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            overflow: hidden;
+            position: relative;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 25px 20px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .header {
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            font-size: 2rem;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.3;
+        }
+        
+        .greeting {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .subtitle {
+            color: #777;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .current-option {
+            margin: 30px 0;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .blind-dumplings {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .blind-dumpling {
+            width: 70px;
+            height: 70px;
+            background: #ff9a3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+        
+        .blind-dumpling::before {
+            content: "?";
+            position: absolute;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .blind-dumpling:active {
+            transform: translateY(-5px) scale(1.05);
+            background: #ff7b3c;
+        }
+        
+        .blind-dumpling.opened {
+            background: #ff6b6b;
+            transform: scale(1.1);
+            animation: bounce 0.5s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1.1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .blessing-message {
+            position: fixed;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+            z-index: 20;
+            animation: floatRandom 6s linear forwards;
+            pointer-events: none;
+            white-space: nowrap;
+            font-size: 1.6rem !important;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes floatRandom {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(
+                    calc((Math.random() - 0.5) * 200px - 100px), 
+                    -100vh
+                ) rotate(calc((Math.random() - 0.5) * 360deg));
+                opacity: 0;
+            }
+        }
+        
+        .explosion {
+            position: fixed;
+            font-size: 3rem;
+            animation: explode 1.5s ease-out forwards;
+            z-index: 100;
+            pointer-events: none;
+        }
+        
+        @keyframes explode {
+            0% { 
+                transform: scale(0.5) rotate(0deg); 
+                opacity: 1; 
+            }
+            50% { 
+                transform: scale(2) rotate(180deg); 
+                opacity: 0.8;
+            }
+            100% { 
+                transform: scale(3) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+        
+        .snowflake {
+            position: fixed;
+            color: #b3e0ff;
+            font-size: 1.5rem;
+            user-select: none;
+            z-index: 5;
+            animation: snowFall linear forwards;
+            pointer-events: none;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        
+        @keyframes snowFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .warm-message {
+            position: fixed;
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+            z-index: 15;
+            animation: warmFloat 12s ease-in-out infinite;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        
+        @keyframes warmFloat {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            25% {
+                transform: translate(30px, -40px) rotate(5deg) scale(1.1);
+            }
+            50% {
+                transform: translate(-20px, -80px) rotate(-5deg) scale(0.9);
+            }
+            75% {
+                transform: translate(15px, -120px) rotate(3deg) scale(1.05);
+            }
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #ff9a3c, #ff6b6b);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #777;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .final-message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            display: none;
+            position: relative;
+        }
+        
+        .big-heart-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            display: none;
+        }
+        
+        .small-heart {
+            position: absolute;
+            font-size: 1.8rem;
+            color: #ff0000;
+            animation: smallHeartbeat 2s infinite;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+            z-index: 25;
+        }
+        
+        @keyframes smallHeartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1.1); }
+            75% { transform: scale(1.2); }
+        }
+        
+        .quiz-container {
+            margin: 15px 0;
+        }
+        
+        .quiz-question {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .quiz-option {
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1rem;
+            text-align: left;
+            touch-action: manipulation;
+        }
+        
+        .quiz-option:active {
+            background: rgba(255, 154, 60, 0.3);
+            border-color: #ff9a3c;
+            transform: translateX(5px);
+        }
+        
+        .selected-dumplings {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .selected-dumpling {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: popIn 0.5s ease;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .selected-dumpling-icon {
+            font-size: 2.2rem;
+        }
+        
+        .selected-dumpling-name {
+            font-size: 0.9rem;
+            margin-top: 4px;
+            color: #666;
+        }
+        
+        .funny-message {
+            font-size: 1.1rem;
+            color: #ff6b6b;
+            margin: 12px 0;
+            font-style: italic;
+            animation: funnyPulse 2s infinite;
+            line-height: 1.4;
+        }
+        
+        @keyframes funnyPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        
+        .letter-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.98);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            z-index: 30;
+            max-width: 90%;
+            width: 400px;
+            display: none;
+            text-align: left;
+            line-height: 1.5;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .letter-content {
+            font-size: 1rem;
+            color: #555;
+        }
+        
+        .letter-signature {
+            text-align: right;
+            margin-top: 15px;
+            font-style: italic;
+            color: #ff6b6b;
+        }
+        
+        .close-letter {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #ff6b6b;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+        
+        button {
+            background: #ff9a3c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+            min-height: 44px;
+            margin: 10px 0;
+        }
+        
+        button:active {
+            transform: scale(0.98);
+            background: #ff8a2c;
+        }
+        
+        /* 超小屏幕适配 */
+        @media (max-width: 360px) {
+            .container {
+                padding: 15px 12px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .greeting {
+                font-size: 1.1rem;
+            }
+            
+            .blind-dumpling {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .blind-dumpling::before {
+                font-size: 1.6rem;
+            }
+            
+            .big-heart-container {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .small-heart {
+                font-size: 1.6rem;
+            }
+        }
+        
+        /* 横屏适配 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                padding: 15px;
+                margin-top: 5px;
+            }
+            
+            .header {
+                margin-bottom: 10px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 8px;
+            }
+            
+            .current-option {
+                margin: 15px 0;
+                min-height: 180px;
+            }
+            
+            .blind-dumplings {
+                gap: 10px;
+            }
+            
+            .blind-dumpling {
+                width: 50px;
+                height: 50px;
+                font-size: 1.6rem;
+            }
+        }
+        
+        /* 防止文本选择 */
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="no-select">
+    <div class="container">
+        <div class="header">
+            <h1>❄️ 啦啦啦~立冬快乐哦，我想温暖你的整个冬天🥰 ❄️</h1>
+            <p class="greeting">嗨，憨豆豆🎄🙌准备好接收温暖和欢乐了吗😎</p>
+            <p class="subtitle">专为你设计的立冬惊喜，保证让你笑出声😉😉</p>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <div class="current-option" id="current-option">
+            <!-- 这里会动态显示当前选项 -->
+        </div>
+        
+        <div class="big-heart-container" id="big-heart-container">
+            <!-- 小心心会通过JS动态生成 -->
+        </div>
+        
+        <div class="final-message" id="final-message"></div>
+        
+        <div class="footer">
+            <p>这个冬天，有你格外温暖哦~💖 <span class="heart">❤️</span></p>
+            <p>—— 来自想逗你开心的调皮捣蛋小盆友😎😎</p>
+        </div>
+    </div>
+    
+    <div class="letter-container" id="letter-container">
+        <div class="close-letter" id="close-letter">×</div>
+        <div class="letter-content" id="letter-content">
+            <!-- 信件内容会通过JS动态生成 -->
+        </div>
+    </div>
+
+    <script>
+        // 游戏状态
+        let currentStep = 0;
+        const totalSteps = 3;
+        let selectedDumplings = [];
+        
+        // 饺子数据 - 每个饺子只有一行祝福语
+        const dumplings = [
+            { 
+                icon: '🥟', 
+                name: '韭菜鸡蛋', 
+                message: '韭菜鸡蛋饺子！吃了它，保证你比韭菜还精神哈哈哈😋😋',
+                color: '#ff6b6b'
+            },
+            { 
+                icon: '🥟', 
+                name: '羊肉饺子', 
+                message: '羊肉饺子！暖身又暖心，吃了它冬天不怕冷，超级暖暖哒~😉😉 ',
+                color: '#ff9a3c'
+            },
+            { 
+                icon: '🥟', 
+                name: '牛肉饺子', 
+                message: '牛肉饺子！补充能量，吃了它你能举起一头牛，哇哦🤩🤩',
+                color: '#06d6a0'
+            },
+            { 
+                icon: '🥟', 
+                name: '素饺子', 
+                message: '素饺子！健康美味，吃了它你会变得超级无敌强💕💕 ',
+                color: '#118ab2'
+            },
+            { 
+                icon: '🥟', 
+                name: '幸运饺子', 
+                message: '幸运饺子！恭喜你，吃了它幸福好运，平安喜乐天天围绕着你转圈圈💖💖 ',
+                color: '#7209b7'
+            }
+        ];
+        
+        // 温暖幽默消息
+        const warmMessages = [
+            "憨豆🎄 你笑起来真暖心！",
+            "这个冬天有你格外温暖！",
+            "愿你每天都有好心情！",
+            "你是我冬天里的小太阳！",
+            "多笑笑，生活更美好！",
+            "你温暖了整个冬天！",
+            "保持微笑，你就是最帅最帅哒！",
+            "愿你被世界温柔以待！",
+            "每一天都因你而美好！",
+            "你值得所有的美好！",
+            "冬天冷，但你很暖！",
+            "你的笑容能融化冰雪！",
+            "愿你冬天快乐每一天！",
+            "你是最特别的！",
+            "立冬快乐，温暖相伴！",
+            "憨豆豆最可爱！",
+            "你的笑声是最好听的音乐！",
+            "今天也要开心哦！",
+            "你笑起来的样子真迷人！"
+        ];
+        
+        // 趣味问题 - 没有标准答案，每个选项都有趣
+        const quizQuestions = [
+            {
+                question: "立冬这天，憨豆豆最适合做什么？",
+                options: [
+                    "窝在被子里当小懒虫",
+                    "吃热气腾腾的饺子大餐🥟",
+                    "出门堆个可爱的雪人⛄",
+                    "接收我的温暖祝福💕"
+                ],
+                responses: [
+                    "哈哈，可以做梦哦~因为你今天要工作😄😄",
+                    "啦啦啦~已经实现云吃饺子啦~我给你准备的馅怎么样呀😎😎",
+                    "堆雪人记得带上我哦~🤗🤗",
+                    "天天陪着你🥰🥰"
+                ]
+            },
+            {
+                question: "如果憨豆豆是冬天的美食，会是什么？",
+                options: [
+                    "热乎乎的火锅",
+                    "甜甜的糖葫芦",
+                    "香喷喷的烤红薯", 
+                    "暖暖的姜茶"
+                ],
+                responses: [
+                    "火锅最热闹，你想想吃什么好呢！",
+                    "糖葫芦甜甜蜜蜜，啦啦啦分泌快乐的多巴胺",
+                    "烤红薯暖心暖胃，不让你饿着啦~",
+                    "姜茶驱寒暖心，好适合冬天的你哦~"
+                ]
+            },
+            {
+                question: "憨豆豆冬天最需要什么？",
+                options: [
+                    "厚厚的羽绒服",
+                    "暖暖的围巾手套",
+                    "热乎乎的茶",
+                    "我的暖心陪伴"
+                ],
+                responses: [
+                    "羽绒服保暖，但不如我的祝福暖！",
+                    "围巾手套很实用，但我的关心更贴心！",
+                    "茶暖手，我的祝福暖心！",
+                    "这个选择最让我开心！"
+                ]
+            }
+        ];
+        
+        // 更新进度条
+        function updateProgress() {
+            const progress = document.getElementById('progress');
+            const percentage = (currentStep / totalSteps) * 100;
+            progress.style.width = percentage + '%';
+        }
+        
+        // 创建祝福消息（单行显示）
+        function createBlessingMessage(text, color) {
+            const message = document.createElement('div');
+            message.className = 'blessing-message';
+            message.textContent = text;
+            
+            // 随机位置
+            const leftPosition = Math.random() * 70 + 15;
+            
+            message.style.left = leftPosition + '%';
+            message.style.top = '80vh';
+            message.style.animationDuration = '6s';
+            message.style.color = color;
+            message.style.fontWeight = 'bold';
+            message.style.background = `rgba(255, 255, 255, 0.9)`;
+            message.style.border = `2px solid ${color}`;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                if (message.parentNode) {
+                    message.parentNode.removeChild(message);
+                }
+            }, 6000);
+        }
+        
+        // 获取随机颜色
+        function getRandomColor() {
+            const colors = ['#ff6b6b', '#ff9a3c', '#ffd166', '#06d6a0', '#118ab2', '#ef476f', '#7209b7', '#3a86ff'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // 创建爆炸效果
+        function createExplosion(x, y) {
+            const explosion = document.createElement('div');
+            explosion.className = 'explosion';
+            explosion.innerHTML = '💥';
+            explosion.style.left = x + 'px';
+            explosion.style.top = y + 'px';
+            explosion.style.color = getRandomColor();
+            
+            document.body.appendChild(explosion);
+            
+            setTimeout(() => {
+                if (explosion.parentNode) {
+                    explosion.parentNode.removeChild(explosion);
+                }
+            }, 1500);
+        }
+        
+        // 创建雪花（满屏飘动）
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.fontSize = (Math.random() * 15 + 12) + 'px';
+            snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+            snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            snowflake.style.color = `rgba(179, 224, 255, ${Math.random() * 0.5 + 0.5})`;
+            
+            document.body.appendChild(snowflake);
+            
+            setTimeout(() => {
+                if (snowflake.parentNode) {
+                    snowflake.parentNode.removeChild(snowflake);
+                }
+            }, 10000);
+        }
+        
+        // 创建温暖消息（满屏飘动）
+        function createWarmMessage() {
+            const message = document.createElement('div');
+            message.className = 'warm-message';
+            message.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
+            message.style.left = Math.random() * 80 + 10 + '%';
+            message.style.top = Math.random() * 80 + 10 + '%';
+            message.style.animationDuration = (Math.random() * 8 + 8) + 's';
+            message.style.color = getRandomColor();
+            message.style.fontSize = (Math.random() * 0.3 + 1.4) + 'rem';
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                if (message.parentNode) {
+                    message.parentNode.removeChild(message);
+                }
+            }, 12000);
+        }
+        
+        // 创建小心心组成的大爱心
+        function createBigHeart() {
+            const container = document.getElementById('big-heart-container');
+            container.style.display = 'block';
+            container.innerHTML = '';
+            
+            // 心形坐标算法
+            const heartPoints = [];
+            const numPoints = 60;
+            
+            for (let i = 0; i < numPoints; i++) {
+                const t = i / numPoints * 2 * Math.PI;
+                const x = 16 * Math.pow(Math.sin(t), 3);
+                const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+                
+                heartPoints.push({
+                    x: (x + 16) / 32 * 200,
+                    y: (-y + 13) / 26 * 200
+                });
+            }
+            
+            // 创建小心心
+            heartPoints.forEach((point, index) => {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'small-heart';
+                    heart.innerHTML = '❤';
+                    heart.style.left = point.x + 'px';
+                    heart.style.top = point.y + 'px';
+                    heart.style.animationDelay = (index * 0.03) + 's';
+                    heart.style.color = '#ff0000';
+                    
+                    container.appendChild(heart);
+                    
+                    if (index === numPoints - 1) {
+                        setTimeout(showLetter, 500);
+                    }
+                }, index * 30);
+            });
+        }
+        
+        // 显示信件
+        function showLetter() {
+            const letterContainer = document.getElementById('letter-container');
+            const letterContent = document.getElementById('letter-content');
+            
+            letterContent.innerHTML = `
+                 <p>嗨，憨豆豆🎄：</p>
+                <p style="margin-top:12px;">希望这个小玩意能给你带来一些温暖和欢乐🤗🤗</p>
+                <p style="margin-top:12px;">每当听到你笑，我的心里就像这满屏的爱心一样，充满了温🥰🥰。</p>
+                <p style="margin-top:12px;">你是一个特别的人，总是能让我想🤩🤩</p>
+                <p style="margin-top:12px;">愿这个冬天，我的祝福能像这些跳动的心一样，</p>
+                <p>一直陪伴着你，温暖你的每一天🙌🙌。</p>
+                <p style="margin-top:12px;">记住，无论什么时候，你在我心中都是最棒最棒的！</p>
+                <p>你是我心里最厉害的人，永远都站在你这边支持你😎😎</p>
+                <p style="margin-top:12px;">愿你整个冬天都温暖、幸运、如愿以偿！</p>
+                <div class="letter-signature">
+                    <p>我会永远陪着你的哦~💖💖</p>
+                    <p>${new Date().getFullYear()}年立冬</p>
+                </div>
+            `;
+            
+            letterContainer.style.display = 'block';
+            
+            // 添加关闭信件的事件
+            document.getElementById('close-letter').addEventListener('click', function() {
+                letterContainer.style.display = 'none';
+            });
+            
+            // 点击背景也可以关闭
+            letterContainer.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+        }
+        
+        // 显示盲盒饺子
+        function showBlindDumplings() {
+            const currentOption = document.getElementById('current-option');
+            currentOption.innerHTML = `
+                <h2 style="color:#ff6b6b; margin-bottom:15px; font-size:1.4rem;">🥟 第一步：惊喜饺子盲盒</h2>
+                <p style="margin-bottom:12px; font-size:1rem;">立冬不吃饺，冻掉耳朵没人管！</p>
+                <p style="margin-bottom:12px; font-size:1rem;">选3个饺子，看看有什么惊喜等着你~</p>
+                <div class="blind-dumplings">
+                    ${dumplings.map((_, index) => `
+                        <div class="blind-dumpling" data-index="${index}"></div>
+                    `).join('')}
+                </div>
+                <div style="margin-top:15px; font-size:1rem; color:#666;">
+                    已选择: ${selectedDumplings.length}/3
+                </div>
+                <div class="funny-message">选一个吧，保证让你笑出声！</div>
+            `;
+            
+            // 添加盲盒点击事件
+            document.querySelectorAll('.blind-dumpling').forEach(dumpling => {
+                dumpling.addEventListener('click', function() {
+                    if (this.classList.contains('opened')) return;
+                    
+                    const index = parseInt(this.getAttribute('data-index'));
+                    const selectedDumpling = dumplings[index];
+                    
+                    // 标记为已打开
+                    this.classList.add('opened');
+                    this.innerHTML = selectedDumpling.icon;
+                    
+                    // 添加到已选择列表
+                    selectedDumplings.push(selectedDumpling);
+                    
+                    // 显示单行祝福消息
+                    createBlessingMessage(
+                        selectedDumpling.message,
+                        selectedDumpling.color
+                    );
+                    
+                    // 更新选择计数
+                    document.querySelector('.blind-dumplings + div').textContent = 
+                        `已选择: ${selectedDumplings.length}/3`;
+                    
+                    // 如果选择了3个，进入下一步
+                    if (selectedDumplings.length === 3) {
+                        setTimeout(showSelectedDumplings, 2000);
+                    }
+                });
+            });
+        }
+        
+        // 显示已选择的饺子
+        function showSelectedDumplings() {
+            const currentOption = document.getElementById('current-option');
+            currentOption.innerHTML = `
+                <h2 style="color:#ff6b6b; margin-bottom:15px; font-size:1.4rem;">🎉 饺子选择完成！</h2>
+                <p style="margin-bottom:12px; font-size:1rem;">你选择了这些美味的饺子：</p>
+                <div class="selected-dumplings">
+                    ${selectedDumplings.map(dumpling => `
+                        <div class="selected-dumpling">
+                            <div class="selected-dumpling-icon">${dumpling.icon}</div>
+                            <div class="selected-dumpling-name">${dumpling.name}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="funny-message">吃饱了吗？现在来玩个趣味问答吧！</div>
+                <button id="next-to-bomb">
+                    下一步：趣味问答 💭
+                </button>
+            `;
+            
+            document.getElementById('next-to-bomb').addEventListener('click', function() {
+                currentStep = 1;
+                updateProgress();
+                showFunQuiz();
+            });
+        }
+        
+        // 显示趣味问答
+        function showFunQuiz() {
+            const currentOption = document.getElementById('current-option');
+            currentOption.innerHTML = `
+                <h2 style="color:#ff9a3c; margin-bottom:15px; font-size:1.4rem;">💭 第二步：趣味问答</h2>
+                <p style="margin-bottom:12px; font-size:1rem;">选你喜欢的答案，每个选择都有惊喜！</p>
+                <div class="quiz-container">
+                    <div class="quiz-question" id="quiz-question">${quizQuestions[0].question}</div>
+                    <div class="quiz-options" id="quiz-options">
+                        ${quizQuestions[0].options.map((option, index) => `
+                            <div class="quiz-option" data-index="${index}">${option}</div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div style="margin-top:15px; font-size:1rem; color:#666;" id="quiz-progress">
+                    问题 1/3
+                </div>
+                <div class="funny-message" id="funny-response"></div>
+            `;
+            
+            let currentQuestion = 0;
+            
+            // 添加选项点击事件
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const selectedIndex = parseInt(this.getAttribute('data-index'));
+                    
+                    // 显示对应的趣味回应
+                    document.getElementById('funny-response').textContent = 
+                        quizQuestions[currentQuestion].responses[selectedIndex];
+                    
+                    // 给选中的选项添加效果
+                    this.style.background = '#c8f7c5';
+                    this.style.borderColor = '#06d6a0';
+                    
+                    // 禁用所有选项
+                    document.querySelectorAll('.quiz-option').forEach(opt => {
+                        opt.style.pointerEvents = 'none';
+                    });
+                    
+                    // 进入下一题或结束
+                    setTimeout(() => {
+                        currentQuestion++;
+                        if (currentQuestion < quizQuestions.length) {
+                            updateQuizQuestion(currentQuestion);
+                        } else {
+                            showBombExplosion();
+                        }
+                    }, 2000);
+                });
+            });
+            
+            function updateQuizQuestion(questionIndex) {
+                document.getElementById('quiz-question').textContent = 
+                    quizQuestions[questionIndex].question;
+                
+                document.getElementById('quiz-options').innerHTML = 
+                    quizQuestions[questionIndex].options.map((option, index) => `
+                        <div class="quiz-option" data-index="${index}">${option}</div>
+                    `).join('');
+                
+                document.getElementById('quiz-progress').textContent = 
+                    `问题 ${questionIndex + 1}/3`;
+                
+                document.getElementById('funny-response').textContent = '';
+                
+                // 重新添加事件监听
+                document.querySelectorAll('.quiz-option').forEach(option => {
+                    option.addEventListener('click', function() {
+                        const selectedIndex = parseInt(this.getAttribute('data-index'));
+                        
+                        document.getElementById('funny-response').textContent = 
+                            quizQuestions[questionIndex].responses[selectedIndex];
+                        
+                        this.style.background = '#c8f7c5';
+                        this.style.borderColor = '#06d6a0';
+                        
+                        document.querySelectorAll('.quiz-option').forEach(opt => {
+                            opt.style.pointerEvents = 'none';
+                        });
+                        
+                        setTimeout(() => {
+                            currentQuestion++;
+                            if (currentQuestion < quizQuestions.length) {
+                                updateQuizQuestion(currentQuestion);
+                            } else {
+                                showBombExplosion();
+                            }
+                        }, 2000);
+                    });
+                });
+            }
+        }
+        
+        // 显示庆祝效果
+        function showBombExplosion() {
+            const currentOption = document.getElementById('current-option');
+            currentOption.innerHTML = `
+                <h2 style="color:#ff9a3c; margin-bottom:15px; font-size:1.4rem;">🎉 问答完成！</h2>
+                <p style="margin-bottom:12px; font-size:1rem;">你的选择都太有趣了！</p>
+                <div style="font-size:3rem; margin:15px 0;">✨</div>
+                <div class="funny-message">准备接收最后的温暖吧！</div>
+            `;
+            
+            // 创建庆祝效果
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    createExplosion(x, y);
+                }, i * 150);
+            }
+            
+            // 进入下一步
+            setTimeout(() => {
+                currentStep = 2;
+                updateProgress();
+                showSun();
+            }, 3000);
+        }
+        
+        // 显示太阳选项
+        function showSun() {
+            const currentOption = document.getElementById('current-option');
+            currentOption.innerHTML = `
+                <h2 style="color:#ffd166; margin-bottom:15px; font-size:1.4rem;">☀️ 第三步：收集温暖</h2>
+                <p style="margin-bottom:12px; font-size:1rem;">点击太阳收集温暖能量，温暖整个冬天！</p>
+                <div style="font-size:4.5rem; cursor:pointer; margin:15px 0; transition: all 0.3s ease;" id="sun-icon">☀️</div>
+                <div style="font-size:1.3rem; color:#ff9a3c; margin:12px 0;" id="energy-counter">温暖能量: 0%</div>
+                <div class="funny-message">多点几下，让温暖充满整个屏幕！</div>
+                <button id="complete-game" style="background:#ffd166; color:#333; display:none;">
+                    完成收集
+                </button>
+            `;
+            
+            // 改变背景为更温暖的色调
+            document.body.style.background = 'linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%)';
+            
+            // 添加太阳点击事件
+            let energy = 0;
+            const sunIcon = document.getElementById('sun-icon');
+            const energyCounter = document.getElementById('energy-counter');
+            const completeButton = document.getElementById('complete-game');
+            
+            sunIcon.addEventListener('click', function() {
+                if (energy < 100) {
+                    energy += 10;
+                    energyCounter.textContent = `温暖能量: ${energy}%`;
+                    
+                    // 太阳图标动画
+                    sunIcon.style.transform = `scale(${1 + energy/100})`;
+                    sunIcon.style.color = energy >= 50 ? '#ff9f43' : '#ffd166';
+                    
+                    // 每次点击创建温暖消息
+                    createWarmMessage();
+                    
+                    if (energy >= 100) {
+                        completeButton.style.display = 'inline-block';
+                        document.querySelector('.funny-message').textContent = "太棒了！温暖能量满格！";
+                    }
+                }
+            });
+            
+            completeButton.addEventListener('click', function() {
+                // 完成所有步骤
+                currentStep = 3;
+                updateProgress();
+                showFinalMessage();
+            });
+        }
+        
+        // 显示最终消息
+        function showFinalMessage() {
+            const currentOption = document.getElementById('current-option');
+            currentOption.innerHTML = '';
+            
+            // 创建小心心组成的大爱心
+            createBigHeart();
+                        
+            // 增加雪花密度 - 满屏飘动
+            setInterval(createSnowflake, 100);
+            
+            // 创建随机温暖消息 - 满屏飘动
+            setInterval(createWarmMessage, 1500);
+        }
+        
+        // 初始化游戏
+        function initGame() {
+            showBlindDumplings();
+            
+            // 创建初始雪花
+            setInterval(createSnowflake, 500);
+        }
+        
+        // 启动游戏
+        initGame();
+    </script>
+</body>
+</html>
